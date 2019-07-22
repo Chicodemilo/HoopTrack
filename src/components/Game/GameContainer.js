@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Modal, Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
+import {
+    Modal,
+    Text,
+    View,
+    Button,
+    StyleSheet,
+    TouchableOpacity,
+    Platform
+} from "react-native";
 import PlayerBox from "./Players/PlayerBox";
 import ClockInButton from "./Buttons/ClockInButton";
 import ShotButtonContainer from "./Buttons/ShotButtonContainer";
@@ -361,6 +369,13 @@ class GameContainer extends Component {
                                 </Text>
                             </View>
                         ) : null}
+                        <View style={styles.activePlayerNameBox}>
+                            <Text style={styles.activePlayerName}>
+                                {this.state.activePlayerKey != null
+                                    ? this.state.activePlayerName
+                                    : null}
+                            </Text>
+                        </View>
                         {activeWarning}
                     </View>
                     <View style={styles.endGame}>
@@ -403,15 +418,16 @@ const styles = StyleSheet.create({
         marginTop: 0,
         marginBottom: 0,
         height: hp("100%"),
-        paddingTop: 27,
+        paddingTop: Platform.OS === "ios" ? 27 : 5,
         paddingBottom: 10
     },
     buttonBox: {
         flexDirection: "column",
         alignItems: "flex-start",
+        width: "100%",
         height: hp("47%"),
         borderTopColor: "green",
-        borderTopWidth: 0.5
+        borderTopWidth: 1
     },
     overlay: {
         flexDirection: "column",
@@ -419,9 +435,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: hp("47%"),
         borderTopColor: "green",
-        borderTopWidth: 0.5,
-        justifyContent: "center",
-        alignItems: "center",
+        borderTopWidth: 1,
         backgroundColor: "black",
         opacity: 0.4
     },
@@ -431,9 +445,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-evenly",
         position: "absolute",
-        height: hp("6%"),
-        bottom: 10,
-        padding: 5,
+        height: hp("5%"),
+        bottom: 9,
+        padding: 2,
         width: "100%",
         borderTopColor: "green",
         borderTopWidth: 0.5
@@ -453,32 +467,26 @@ const styles = StyleSheet.create({
         borderTopColor: "green",
         borderTopWidth: 0.5
     },
-    activePlayerName: {
-        color: "green",
-        height: hp("2%"),
-        fontSize: 11,
-        fontWeight: "bold",
-        padding: 1
-    },
     resetBox: {
         width: "100%",
         marginTop: 0,
         flexDirection: "row",
-        height: hp("4%"),
+        height: hp("5%"),
         padding: 2,
         alignItems: "flex-start"
     },
     resetButtons: {
         backgroundColor: "#212121",
         margin: 2,
+        padding: 5,
         justifyContent: "center",
+        height: hp("4%"),
         alignItems: "center",
-        width: "48%"
+        width: "49%"
     },
     resetText: {
         color: "#ddd",
-        padding: 4,
-        fontSize: 10
+        fontSize: 11
     },
     warningText: {
         color: "#00b3ff",
@@ -488,7 +496,19 @@ const styles = StyleSheet.create({
     warningBox: {
         position: "absolute",
         right: 5,
-        top: 5
+        top: 30
+    },
+    activePlayerNameBox: {
+        position: "absolute",
+        right: 5,
+        top: 5,
+        padding: 2
+    },
+
+    activePlayerName: {
+        color: "white",
+        fontSize: 14,
+        fontWeight: "bold"
     }
 });
 

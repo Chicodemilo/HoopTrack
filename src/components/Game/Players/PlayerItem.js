@@ -12,9 +12,7 @@ const playerItem = props => (
     >
         <View>
             <Text style={styles.playerText}>{props.playerName}</Text>
-            <Text style={styles.clockText}>
-                {props.checkedIn ? "IN" : "OUT"} {props.active ? "ACTIVE" : null}
-            </Text>
+            <Text style={styles.clockText}>{props.checkedIn ? "IN" : "OUT"}</Text>
         </View>
     </TouchableOpacity>
 );
@@ -23,13 +21,13 @@ const styles = StyleSheet.create({
     activePlayer: {
         padding: 5,
         height: hp("6%"),
-        backgroundColor: "#cc5500",
+        backgroundColor: "#e36002",
         margin: 5,
         flexGrow: 1
     },
     inActivePlayer: {
         padding: 5,
-        backgroundColor: "#8a3a01",
+        backgroundColor: "#693917",
         height: hp("6%"),
         margin: 5,
         flexGrow: 1

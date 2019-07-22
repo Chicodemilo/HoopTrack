@@ -22,7 +22,10 @@ const styles = StyleSheet.create({
         width: "100%",
         marginBottom: 10,
         height: hp("6%"),
-        padding: 5
+        padding: 5,
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "flex-start"
     },
     clockInButton: {
         width: "100%",

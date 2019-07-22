@@ -101,7 +101,8 @@ export default class App extends Component {
             return {
                 gameInProgress: false,
                 gameStats: endGameStats,
-                gameTime: endGameTime
+                gameTime: endGameTime,
+                playersObj: {}
             };
         });
     };

@@ -44,7 +44,7 @@ class PlayerInput extends Component {
                     placeholder={this.state.inputMessage}
                     value={this.state.playerName}
                     onChangeText={this.playerNameChangedHandler}
-                    maxLength={11}
+                    maxLength={10}
                 />
                 <Button
                     style={styles.inputButton}
