@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Checkbox } from "react-naative-elements";
 
 const listItem = props => (
     <TouchableOpacity onPress={props.onItemPressed}>

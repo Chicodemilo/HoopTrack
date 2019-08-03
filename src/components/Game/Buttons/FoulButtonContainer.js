@@ -10,14 +10,16 @@ const FoulButtonContainer = props => {
         <View style={styles.shotContainer}>
             <TouchableOpacity style={styles.shotButton} onPress={props.fouls}>
                 <View>
-                    <Text style={styles.shotText}>FOUL</Text>
+                    <Text style={styles.shotText}>
+                        FOUL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.shotButton} onPress={props.technicals}>
+            {/* <TouchableOpacity style={styles.shotButton} onPress={props.technicals}>
                 <View>
                     <Text style={styles.shotText}>TECHNICAL</Text>
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity style={styles.shotButton} onPress={props.turnOvers}>
                 <View>
                     <Text style={styles.shotText}>TURNOVER</Text>

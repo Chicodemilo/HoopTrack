@@ -1,10 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import PlayerItem from "./PlayerItem";
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp
-} from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const playerBox = props => {
     const playerOutput = Object.keys(props.gamePlayers).map(key => (

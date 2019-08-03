@@ -68,7 +68,17 @@ const StatsService = {
 
             activePlayers[activePlayerKey].threePointMade =
                 activePlayers[activePlayerKey].threePointMade + 1;
+
+            activePlayers[activePlayerKey].threePointPercentage = this.shootingPercent(
+                activePlayers[activePlayerKey].threePointMade,
+                activePlayers[activePlayerKey].threePointAttempts
+            );
         }
+
+        activePlayers[activePlayerKey].shootingPercentage = this.shootingPercent(
+            activePlayers[activePlayerKey].shotsMade,
+            activePlayers[activePlayerKey].shotAttempts
+        );
 
         activePlayers[activePlayerKey].shotsMade =
             activePlayers[activePlayerKey].shotsMade + 1;
@@ -86,7 +96,17 @@ const StatsService = {
         } else {
             activePlayers[activePlayerKey].threePointAttempts =
                 activePlayers[activePlayerKey].threePointAttempts + 1;
+
+            activePlayers[activePlayerKey].threePointPercentage = this.shootingPercent(
+                activePlayers[activePlayerKey].threePointMade,
+                activePlayers[activePlayerKey].threePointAttempts
+            );
         }
+
+        activePlayers[activePlayerKey].shootingPercentage = this.shootingPercent(
+            activePlayers[activePlayerKey].shotsMade,
+            activePlayers[activePlayerKey].shotAttempts
+        );
 
         return activePlayers;
     },
@@ -120,12 +140,22 @@ const StatsService = {
 
         activePlayers[activePlayerKey].points = activePlayers[activePlayerKey].points + 1;
 
+        activePlayers[activePlayerKey].freeThrowPercentage = this.shootingPercent(
+            activePlayers[activePlayerKey].freeThrowMade,
+            activePlayers[activePlayerKey].freeThrowAttempts
+        );
+
         return activePlayers;
     },
 
     freeThrowMiss: function(activePlayers, activePlayerKey) {
         activePlayers[activePlayerKey].freeThrowAttempts =
             activePlayers[activePlayerKey].freeThrowAttempts + 1;
+
+        activePlayers[activePlayerKey].freeThrowPercentage = this.shootingPercent(
+            activePlayers[activePlayerKey].freeThrowMade,
+            activePlayers[activePlayerKey].freeThrowAttempts
+        );
 
         return activePlayers;
     },

@@ -24,8 +24,11 @@ import {
 } from "react-native-responsive-screen";
 
 // TODO option to clock in players at game start?
-// TODO make final report view
-// TODO email final report
+// TODO Add to Final Report
+// TODO email final report view
+// TODO make api and endpoint
+// TODO log email addresses and send email
+// TODO fix the Show Game Stats when no game stats
 
 class GameContainer extends Component {
     constructor(props) {
@@ -154,6 +157,7 @@ class GameContainer extends Component {
                 this.state.activePlayerKey,
                 action
             );
+            console.log(newPlayers);
             this.setState({
                 activePlayers: newPlayers
             });
@@ -210,19 +214,19 @@ class GameContainer extends Component {
 
         if (this.state.activePlayers[this.state.activePlayerKey] != undefined) {
             clockInStatus = this.state.activePlayers[this.state.activePlayerKey].clockedIn;
-            shootingPercent = StatsService.shootingPercent(
-                this.state.activePlayers[this.state.activePlayerKey].shotsMade,
-                this.state.activePlayers[this.state.activePlayerKey].shotAttempts
-            );
-            threePointPercent = StatsService.shootingPercent(
-                this.state.activePlayers[this.state.activePlayerKey].threePointMade,
-                this.state.activePlayers[this.state.activePlayerKey].threePointAttempts
-            );
+            // shootingPercent = StatsService.shootingPercent(
+            //     this.state.activePlayers[this.state.activePlayerKey].shotsMade,
+            //     this.state.activePlayers[this.state.activePlayerKey].shotAttempts
+            // );
+            // threePointPercent = StatsService.shootingPercent(
+            //     this.state.activePlayers[this.state.activePlayerKey].threePointMade,
+            //     this.state.activePlayers[this.state.activePlayerKey].threePointAttempts
+            // );
 
-            freeThrowPercent = StatsService.shootingPercent(
-                this.state.activePlayers[this.state.activePlayerKey].freeThrowMade,
-                this.state.activePlayers[this.state.activePlayerKey].freeThrowAttempts
-            );
+            // freeThrowPercent = StatsService.shootingPercent(
+            //     this.state.activePlayers[this.state.activePlayerKey].freeThrowMade,
+            //     this.state.activePlayers[this.state.activePlayerKey].freeThrowAttempts
+            // );
 
             freeThrowMiss =
                 this.state.activePlayers[this.state.activePlayerKey].freeThrowAttempts -
@@ -326,7 +330,8 @@ class GameContainer extends Component {
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .shotsMade + ` `}
                                     &nbsp;&nbsp;
-                                    {shootingPercent + `%\n`}
+                                    {this.state.activePlayers[this.state.activePlayerKey]
+                                        .shootingPercentage + `%\n`}
                                     &bull;&nbsp;3pt Att:&nbsp;
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .threePointAttempts + ` `}
@@ -334,7 +339,8 @@ class GameContainer extends Component {
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .threePointMade + ` `}
                                     &nbsp;&nbsp;
-                                    {threePointPercent + `% \n`}
+                                    {this.state.activePlayers[this.state.activePlayerKey]
+                                        .threePointPercentage + `% \n`}
                                     &bull;&nbsp;Rebounds:&nbsp;
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .rebounds + ` `}
@@ -350,7 +356,8 @@ class GameContainer extends Component {
                                     &nbsp;Missed:&nbsp;
                                     {freeThrowMiss + ` `}
                                     &nbsp;&nbsp;
-                                    {freeThrowPercent + `% \n`}
+                                    {this.state.activePlayers[this.state.activePlayerKey]
+                                        .freeThrowPercentage + `% \n`}
                                     &bull;&nbsp;Assists:&nbsp;
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .assists + `\n`}
@@ -360,9 +367,6 @@ class GameContainer extends Component {
                                     &bull;&nbsp;Fouls:&nbsp;
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .foulsCommitted + ` `}
-                                    &nbsp;&nbsp;&bull;&nbsp;Techs:&nbsp;
-                                    {this.state.activePlayers[this.state.activePlayerKey]
-                                        .technicals + ` `}
                                     &nbsp;&nbsp;&bull;&nbsp;TurnOvers:&nbsp;
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .turnOvers + ` `}

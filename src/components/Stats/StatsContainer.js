@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import { Modal, Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { Modal, Text, View, Button, StyleSheet, ScrollView, FlatList } from "react-native";
+import PlayerStats from "./PlayerStats";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 class StatsContainer extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            finalStats: props.gamePlayers,
+            finalStats: props.finalStats,
             gameTime: props.gameTime,
             showFinalStats: props.showFinalStats,
             hideFinalStats: props.hideFinalStats
@@ -25,6 +29,9 @@ class StatsContainer extends Component {
                         }}
                     />
                 </View>
+                <View style={styles.statsBox}>
+                    <PlayerStats finalStats={this.state.finalStats} />
+                </View>
             </Modal>
         );
     }
@@ -41,7 +48,14 @@ const styles = StyleSheet.create({
         marginTop: 0,
         marginBottom: 0,
         paddingTop: 30,
-        paddingBottom: 20
+        paddingBottom: 10,
+        borderBottomColor: "black",
+        borderWidth: 1,
+        width: wp("100%"),
+        height: hp("15%")
+    },
+    statsBox: {
+        height: hp("84%")
     }
 });
 

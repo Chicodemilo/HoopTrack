@@ -17,7 +17,7 @@ export default class App extends Component {
         gameInProgress: false,
         showFinalStats: false,
         gameTime: 0,
-        gameStats: "",
+        endGameStats: {},
         firstActivePlayerName: "",
         firstActivePlayerKey: null
     };
@@ -43,11 +43,13 @@ export default class App extends Component {
             timePlayedMin: "0:00",
             points: 0,
             shotAttempts: 0,
-            twoPointAttempts: 0,
-            threePointAttempts: 0,
             shotsMade: 0,
+            shootingPercentage: 0,
+            twoPointAttempts: 0,
             twoPointMade: 0,
+            threePointAttempts: 0,
             threePointMade: 0,
+            threePointPercentage: 0,
             rebounds: 0,
             offRebounds: 0,
             defRebounds: 0,
@@ -58,6 +60,7 @@ export default class App extends Component {
             technicals: 0,
             freeThrowAttempts: 0,
             freeThrowMade: 0,
+            freeThrowPercentage: 0,
             pointsPerMin: 0,
             shotsPerMin: 0,
             reboundsPerMin: 0,
@@ -96,13 +99,11 @@ export default class App extends Component {
     };
 
     gameEndHandler = (endGameTime, endGameStats) => {
-        console.log(endGameStats);
         this.setState(prevState => {
             return {
                 gameInProgress: false,
-                gameStats: endGameStats,
-                gameTime: endGameTime,
-                playersObj: {}
+                endGameStats: endGameStats,
+                gameTime: endGameTime
             };
         });
     };
@@ -134,6 +135,18 @@ export default class App extends Component {
                 </View>
             ) : null;
 
+        let endGameView = null;
+        if (this.state.showFinalStats == true) {
+            endGameView = (
+                <StatsContainer
+                    showFinalStats={this.state.showFinalStats}
+                    hideFinalStats={this.hideFinalStats}
+                    finalStats={this.state.playersObj}
+                    gameTime={this.state.gameTime}
+                />
+            );
+        }
+
         return (
             <View style={styles.container}>
                 {Object.keys(this.state.playersObj).length > 0 ? (
@@ -147,14 +160,7 @@ export default class App extends Component {
                     />
                 ) : null}
 
-                {this.state.showFinalStats == true ? (
-                    <StatsContainer
-                        showFinalStats={this.state.showFinalStats}
-                        hideFinalStats={this.hideFinalStats}
-                        finalStats={this.state.gameStats}
-                        gameTime={this.gameTime}
-                    />
-                ) : null}
+                {endGameView}
 
                 <StartButton
                     startTheGame={this.startTheGameHandler}
