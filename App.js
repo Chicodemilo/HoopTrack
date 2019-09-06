@@ -8,19 +8,22 @@ import StatsContainer from "./src/components/Stats/StatsContainer";
 import GameContainer from "./src/components/Game/GameContainer";
 
 export default class App extends Component {
-    state = {
-        inputMessage: "Enter Player Name",
-        playersObj: {},
-        initialPlayerObj: {},
-        playerLimit: 3,
-        disableButton: true,
-        gameInProgress: false,
-        showFinalStats: false,
-        gameTime: 0,
-        endGameStats: {},
-        firstActivePlayerName: "",
-        firstActivePlayerKey: null
-    };
+    constructor() {
+        super();
+        this.state = {
+            inputMessage: "Enter Player Name",
+            playersObj: {},
+            initialPlayerObj: {},
+            playerLimit: 3,
+            disableButton: true,
+            gameInProgress: false,
+            showFinalStats: false,
+            gameTime: 0,
+            endGameStats: "",
+            firstActivePlayerName: "",
+            firstActivePlayerKey: null
+        };
+    }
 
     playerAddedHandler = playerName => {
         const activatePlayer = Object.keys(this.state.playersObj).length > 0 ? false : true;
@@ -91,8 +94,10 @@ export default class App extends Component {
     };
 
     startTheGameHandler = index => {
+        // console.log(this.state.endGameStats);
         this.setState(prevState => {
             return {
+                endGameStats: {},
                 gameInProgress: true
             };
         });
@@ -101,6 +106,8 @@ export default class App extends Component {
     gameEndHandler = (endGameTime, endGameStats) => {
         this.setState(prevState => {
             return {
+                disableButton: true,
+                playersObj: {},
                 gameInProgress: false,
                 endGameStats: endGameStats,
                 gameTime: endGameTime
@@ -122,7 +129,7 @@ export default class App extends Component {
 
     render() {
         let finalStatsButton =
-            this.state.gameStats != "" ? (
+            this.state.endGameStats != "" ? (
                 <View>
                     <Button
                         style={styles.baseButton}
@@ -141,7 +148,7 @@ export default class App extends Component {
                 <StatsContainer
                     showFinalStats={this.state.showFinalStats}
                     hideFinalStats={this.hideFinalStats}
-                    finalStats={this.state.playersObj}
+                    finalStats={this.state.endGameStats}
                     gameTime={this.state.gameTime}
                 />
             );

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Modal, Text, View, Button, StyleSheet, ScrollView, FlatList } from "react-native";
 import PlayerStats from "./PlayerStats";
+import SendReportContainer from "../SendReport/SendReportContainer";
+
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
@@ -13,11 +15,34 @@ class StatsContainer extends Component {
             finalStats: props.finalStats,
             gameTime: props.gameTime,
             showFinalStats: props.showFinalStats,
-            hideFinalStats: props.hideFinalStats
+            hideFinalStats: props.hideFinalStats,
+            showSendReport: false
         };
     }
 
+    showReportView = () => {
+        this.setState({
+            showSendReport: true
+        });
+    };
+
+    hideReportView = () => {
+        this.setState({
+            showSendReport: false
+        });
+    };
+
     render() {
+        let sendReportView = null;
+        if (this.state.showSendReport == true) {
+            sendReportView = (
+                <SendReportContainer
+                    hideReportView={this.hideReportView}
+                    showSendReport={this.showSendReport}
+                />
+            );
+        }
+
         return (
             <Modal visible={this.props.gameOver} animationType="slide">
                 <View style={styles.gameView}>
@@ -28,10 +53,18 @@ class StatsContainer extends Component {
                             this.props.hideFinalStats();
                         }}
                     />
+                    <Button
+                        title="Email Report"
+                        color="blue"
+                        onPress={() => {
+                            this.showReportView();
+                        }}
+                    />
                 </View>
                 <View style={styles.statsBox}>
                     <PlayerStats finalStats={this.state.finalStats} />
                 </View>
+                {sendReportView}
             </Modal>
         );
     }

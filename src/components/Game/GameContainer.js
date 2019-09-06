@@ -25,10 +25,8 @@ import {
 
 // TODO option to clock in players at game start?
 // TODO Add to Final Report
-// TODO email final report view
-// TODO make api and endpoint
-// TODO log email addresses and send email
-// TODO fix the Show Game Stats when no game stats
+// TODO Add to email final report view
+// TODO name a game - maybe
 
 class GameContainer extends Component {
     constructor(props) {
@@ -157,7 +155,6 @@ class GameContainer extends Component {
                 this.state.activePlayerKey,
                 action
             );
-            console.log(newPlayers);
             this.setState({
                 activePlayers: newPlayers
             });
@@ -214,20 +211,6 @@ class GameContainer extends Component {
 
         if (this.state.activePlayers[this.state.activePlayerKey] != undefined) {
             clockInStatus = this.state.activePlayers[this.state.activePlayerKey].clockedIn;
-            // shootingPercent = StatsService.shootingPercent(
-            //     this.state.activePlayers[this.state.activePlayerKey].shotsMade,
-            //     this.state.activePlayers[this.state.activePlayerKey].shotAttempts
-            // );
-            // threePointPercent = StatsService.shootingPercent(
-            //     this.state.activePlayers[this.state.activePlayerKey].threePointMade,
-            //     this.state.activePlayers[this.state.activePlayerKey].threePointAttempts
-            // );
-
-            // freeThrowPercent = StatsService.shootingPercent(
-            //     this.state.activePlayers[this.state.activePlayerKey].freeThrowMade,
-            //     this.state.activePlayers[this.state.activePlayerKey].freeThrowAttempts
-            // );
-
             freeThrowMiss =
                 this.state.activePlayers[this.state.activePlayerKey].freeThrowAttempts -
                 this.state.activePlayers[this.state.activePlayerKey].freeThrowMade;

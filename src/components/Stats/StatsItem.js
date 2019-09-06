@@ -30,7 +30,7 @@ const statsItem = props => (
         <Text style={styles.playerTextSmall}>
             &bull; Shot Att: {props.playerStats.shotAttempts} &nbsp; Shots Made:&nbsp;
             {props.playerStats.shotsMade} &nbsp; Shooting %:
-            {props.playerStats.shotsMade}
+            {props.playerStats.shootingPercentage}
         </Text>
         <Text style={styles.playerTextSmall}>
             &bull; 3pt Att: {props.playerStats.threePointAttempts} &nbsp; 3pt Made:&nbsp;
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     playerTextSmall: {
-        fontSize: 14,
+        fontSize: 13,
         textAlign: "left",
         marginTop: 4
     }
