@@ -11,7 +11,8 @@ class SendReportContainer extends Component {
         super(props);
         this.state = {
             showSendReport: props.showSendReport,
-            hideReportView: props.hideReportView
+            hideReportView: props.hideReportView,
+            finalStats: props.finalStats
         };
     }
 
@@ -27,7 +28,7 @@ class SendReportContainer extends Component {
                         }}
                     />
                 </View>
-                <EmailInput />
+                <EmailInput finalStats={this.state.finalStats} />
             </Modal>
         );
     }
