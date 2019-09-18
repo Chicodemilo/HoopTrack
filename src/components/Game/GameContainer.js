@@ -24,9 +24,12 @@ import {
 } from "react-native-responsive-screen";
 
 // TODO option to clock in players at game start?
-// TODO Add to Final Report
-// TODO Add to email final report view
-// TODO name a game - maybe
+// TODO Add more stats to Final Report
+// TODO Add more stats to email final report view
+// TODO non valid email warning
+// TODO email sent ent and return to game view
+// TODO add steals to stats
+// TODO fix undefined on player % when resetting or undoing
 
 class GameContainer extends Component {
     constructor(props) {
@@ -204,9 +207,6 @@ class GameContainer extends Component {
 
     render() {
         let clockInStatus = false;
-        let shootingPercent = 0;
-        let threePointPercent = 0;
-        let freeThrowPercent = 0;
         let freeThrowMiss = 0;
 
         if (this.state.activePlayers[this.state.activePlayerKey] != undefined) {

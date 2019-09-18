@@ -39,6 +39,7 @@ class StatsContainer extends Component {
                 <SendReportContainer
                     hideReportView={this.hideReportView}
                     showSendReport={this.showSendReport}
+                    finalStats={this.state.finalStats}
                 />
             );
         }

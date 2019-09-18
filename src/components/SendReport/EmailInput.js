@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, TextInput, Button, StyleSheet, Text } from "react-native";
 import { format, getTime } from "date-fns";
 import axios from "axios";
-// import { API_KEY } from "react-native-dotenv";
+import { URL_ONE, URL_TWO, NAME, EMAIL, PW } from "../../../info";
 
 class EmailInput extends Component {
     //
@@ -41,44 +41,84 @@ class EmailInput extends Component {
         email = this.state.emailAddress.toLocaleLowerCase();
         validEmail = this.checkEmailAddress(email);
         if (validEmail) {
-            let sendData = {
-                email: this.state.emailAddress,
-                data: {
-                    id: this.state.gameId,
-                    date: format(new Date(), "yyyy-MM-dd"),
-                    name: this.state.gameName,
-                    players: this.state.finalStats
-                }
-            };
-
-            // console.log(API_KEY);
-
-            var formData = new FormData();
-            formData.append("name", "Test");
-            formData.append("email", "mileschick@gmail.com");
-            formData.append("password", "12345678");
-            formData.append("password_confirmation", "12345678");
-            axios({
-                method: "post",
-                url: "http://134.209.119.174/api/loginAPI",
-                data: formData,
-                config: { headers: { "Content-Type": "multipart/form-data" } }
-            })
-                .then(function(response) {
-                    //handle success
-                    console.log(response);
-                })
-                .catch(function(response) {
-                    //handle error
-                    console.log(response);
-                });
-            // console.log(sendData);
+            this.callAPI("gameEmail");
         } else {
             this.setState({
                 showEmailWarning: true
             });
         }
     };
+
+    async callAPI(type) {
+        var formData = new FormData();
+        formData.append("name", NAME);
+        formData.append("email", EMAIL);
+        formData.append("password", PW);
+        formData.append("password_confirmation", PW);
+
+        const hash = await axios({
+            method: "post",
+            url: URL_ONE,
+            data: formData,
+            config: { headers: { "Content-Type": "multipart/form-data" } }
+        })
+            .then(function(response) {
+                return response.data.access_token;
+            })
+            .catch(function(error) {
+                console.log(error);
+                return error;
+            });
+
+        switch (type) {
+            case "gameEmail":
+                this.sendGame(hash);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    async sendGame(key) {
+        let sendData = {
+            data: {
+                email: this.state.emailAddress,
+                game: {
+                    id: this.state.gameId,
+                    date: format(new Date(), "yyyy-MM-dd"),
+                    name: this.state.gameName,
+                    players: this.state.finalStats
+                }
+            }
+        };
+
+        var bearer = "Bearer " + key;
+
+        let didItWork = await fetch(URL_TWO, {
+            method: "POST",
+            withCredentials: true,
+            credentials: "include",
+            headers: {
+                Authorization: bearer,
+                mode: "no-cors",
+                cache: "no-cache",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendData)
+        })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                return data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        console.log(didItWork);
+    }
 
     checkEmailAddress(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -99,6 +139,7 @@ class EmailInput extends Component {
                     style={styles.emailInput}
                     placeholder="Enter A Name For This Game"
                     onChangeText={this.saveGameName}
+                    value="test game"
                 />
                 <Text style={styles.inputLabels}>Email Address: </Text>
                 <TextInput
