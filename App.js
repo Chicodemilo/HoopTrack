@@ -57,6 +57,7 @@ export default class App extends Component {
             offRebounds: 0,
             defRebounds: 0,
             assists: 0,
+            steals: 0,
             blocks: 0,
             turnOvers: 0,
             foulsCommitted: 0,

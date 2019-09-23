@@ -13,6 +13,11 @@ const AssistButtonContainer = props => {
                     <Text style={styles.shotText}>ASSIST</Text>
                 </View>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.shotButton} onPress={props.steal}>
+                <View>
+                    <Text style={styles.shotText}>STEAL</Text>
+                </View>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.shotButton} onPress={props.block}>
                 <View>
                     <Text style={styles.shotText}>BLOCK</Text>

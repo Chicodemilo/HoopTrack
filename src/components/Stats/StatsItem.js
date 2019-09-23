@@ -21,6 +21,7 @@ const statsItem = props => (
             &bull; Assist: {props.playerStats.assists}
         </Text>
         <Text style={styles.playerTextSmall}>&bull; Blocks: {props.playerStats.blocks}</Text>
+        <Text style={styles.playerTextSmall}>&bull; Steals: {props.playerStats.steals}</Text>
         <Text style={styles.playerTextSmall}>
             &bull; Turn Overs: {props.playerStats.turnOvers}
         </Text>

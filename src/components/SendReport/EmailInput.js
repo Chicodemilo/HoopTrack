@@ -13,7 +13,8 @@ class EmailInput extends Component {
         gameId: "",
         emailAddress: "",
         finalStats: this.props.finalStats,
-        showEmailWarning: false
+        showEmailWarning: false,
+        gameSent: false
     };
 
     componentDidMount() {
@@ -43,9 +44,19 @@ class EmailInput extends Component {
         if (validEmail) {
             this.callAPI("gameEmail");
         } else {
-            this.setState({
-                showEmailWarning: true
+            this.setState(prevState => {
+                return {
+                    showEmailWarning: true
+                };
             });
+
+            setTimeout(() => {
+                this.setState(prevState => {
+                    return {
+                        showEmailWarning: false
+                    };
+                });
+            }, 1200);
         }
     };
 
@@ -110,14 +121,26 @@ class EmailInput extends Component {
             .then(function(response) {
                 return response.json();
             })
-            .then(function(data) {
-                return data;
+            .then(data => {
+                if (data.data.sent == true) {
+                    this.setState(prevState => {
+                        return {
+                            gameSent: true
+                        };
+                    });
+
+                    setTimeout(() => {
+                        this.setState(prevState => {
+                            return {
+                                gameSent: false
+                            };
+                        });
+                    }, 2500);
+                }
             })
             .catch(error => {
                 console.log(error);
             });
-
-        console.log(didItWork);
     }
 
     checkEmailAddress(email) {
@@ -132,6 +155,18 @@ class EmailInput extends Component {
     };
 
     render() {
+        emailWarning = this.state.showEmailWarning ? (
+            <View style={styles.warningBox}>
+                <Text style={styles.warningText}>Please Enter A Valid Email Address</Text>
+            </View>
+        ) : null;
+
+        gameSentAlert = this.state.gameSent ? (
+            <View style={styles.warningBox}>
+                <Text style={styles.emailText}>Email Sent</Text>
+            </View>
+        ) : null;
+
         return (
             <View style={styles.inputContainer}>
                 <Text style={styles.inputLabels}>Game: </Text>
@@ -139,7 +174,6 @@ class EmailInput extends Component {
                     style={styles.emailInput}
                     placeholder="Enter A Name For This Game"
                     onChangeText={this.saveGameName}
-                    value="test game"
                 />
                 <Text style={styles.inputLabels}>Email Address: </Text>
                 <TextInput
@@ -152,6 +186,8 @@ class EmailInput extends Component {
                     title="Send Game Stats"
                     onPress={this.sendTheEmail}
                 />
+                {emailWarning}
+                {gameSentAlert}
             </View>
         );
     }
@@ -179,6 +215,20 @@ const styles = StyleSheet.create({
         color: "#ababab",
         marginTop: 15,
         marginLeft: 5
+    },
+    warningText: {
+        color: "#00b3ff",
+        fontWeight: "bold",
+        fontSize: 13
+    },
+    emailText: {
+        color: "#289600",
+        fontWeight: "bold",
+        fontSize: 14
+    },
+    warningBox: {
+        left: 10,
+        top: 35
     }
 });
 

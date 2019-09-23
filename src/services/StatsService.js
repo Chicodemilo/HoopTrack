@@ -38,8 +38,8 @@ const StatsService = {
             case "fouls":
                 return this.fouls(activePlayers, activePlayerKey);
 
-            case "technicals":
-                return this.technicals(activePlayers, activePlayerKey);
+            case "steals":
+                return this.steals(activePlayers, activePlayerKey);
 
             case "turnOvers":
                 return this.turnOvers(activePlayers, activePlayerKey);
@@ -179,9 +179,8 @@ const StatsService = {
         return activePlayers;
     },
 
-    technicals: function(activePlayers, activePlayerKey) {
-        activePlayers[activePlayerKey].technicals =
-            activePlayers[activePlayerKey].technicals + 1;
+    steals: function(activePlayers, activePlayerKey) {
+        activePlayers[activePlayerKey].steals = activePlayers[activePlayerKey].steals + 1;
 
         return activePlayers;
     },
@@ -212,21 +211,25 @@ const StatsService = {
             timePlayedMin: "0:00",
             points: 0,
             shotAttempts: 0,
-            twoPointAttempts: 0,
-            threePointAttempts: 0,
             shotsMade: 0,
+            shootingPercentage: 0,
+            twoPointAttempts: 0,
             twoPointMade: 0,
+            threePointAttempts: 0,
             threePointMade: 0,
+            threePointPercentage: 0,
             rebounds: 0,
             offRebounds: 0,
             defRebounds: 0,
             assists: 0,
+            steals: 0,
             blocks: 0,
             turnOvers: 0,
             foulsCommitted: 0,
             technicals: 0,
             freeThrowAttempts: 0,
             freeThrowMade: 0,
+            freeThrowPercentage: 0,
             pointsPerMin: 0,
             shotsPerMin: 0,
             reboundsPerMin: 0,
@@ -255,8 +258,10 @@ const StatsService = {
                 twoPointAttempts: oldActivePlayers[thiskey].twoPointAttempts,
                 threePointAttempts: oldActivePlayers[thiskey].threePointAttempts,
                 shotsMade: oldActivePlayers[thiskey].shotsMade,
+                shootingPercentage: oldActivePlayers[thiskey].shootingPercentage,
                 twoPointMade: oldActivePlayers[thiskey].twoPointMade,
                 threePointMade: oldActivePlayers[thiskey].threePointMade,
+                threePointPercentage: oldActivePlayers[thiskey].threePointPercentage,
                 rebounds: oldActivePlayers[thiskey].rebounds,
                 offRebounds: oldActivePlayers[thiskey].offRebounds,
                 defRebounds: oldActivePlayers[thiskey].defRebounds,
@@ -264,9 +269,10 @@ const StatsService = {
                 blocks: oldActivePlayers[thiskey].blocks,
                 turnOvers: oldActivePlayers[thiskey].turnOvers,
                 foulsCommitted: oldActivePlayers[thiskey].foulsCommitted,
-                technicals: oldActivePlayers[thiskey].technicals,
+                steals: oldActivePlayers[thiskey].steals,
                 freeThrowAttempts: oldActivePlayers[thiskey].freeThrowAttempts,
                 freeThrowMade: oldActivePlayers[thiskey].freeThrowMade,
+                freeThrowPercentage: oldActivePlayers[thiskey].freeThrowPercentage,
                 pointsPerMin: oldActivePlayers[thiskey].pointsPerMin,
                 shotsPerMin: oldActivePlayers[thiskey].shotsPerMin,
                 reboundsPerMin: oldActivePlayers[thiskey].reboundsPerMin,

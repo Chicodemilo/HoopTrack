@@ -17,19 +17,15 @@ import ReboundButtonContainer from "./Buttons/ReboundButtonContainer";
 import FreeThrowButtonContainer from "./Buttons/FreeThrowButtonContainer";
 import AssistButtonContainer from "./Buttons/AssistButtonContainer";
 import FoulButtonContainer from "./Buttons/FoulButtonContainer";
-import StyleObject from "../../assets/styles/style";
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 
-// TODO option to clock in players at game start?
-// TODO Add more stats to Final Report
-// TODO Add more stats to email final report view
-// TODO non valid email warning
-// TODO email sent ent and return to game view
-// TODO add steals to stats
-// TODO fix undefined on player % when resetting or undoing
+// TODO option to clock in players at game start? - 8
+// TODO Add more stats to Final Report - 6
+// TODO Add more stats to email final report view - 7
+// TODO make game stats its own component - 5
 
 class GameContainer extends Component {
     constructor(props) {
@@ -64,8 +60,7 @@ class GameContainer extends Component {
             this.setState({
                 activePlayers: NewTimeData.activePlayers,
                 gameTime: NewTimeData.gameTime,
-                gameMin: NewTimeData.gameMin,
-                test: "Tacos!"
+                gameMin: NewTimeData.gameMin
             });
         }
     };
@@ -153,6 +148,7 @@ class GameContainer extends Component {
             nowStateActive = { ...this.state.activePlayers };
             this.addToOldActivePlayers(nowStateActive);
             this.clockInTest();
+            console.log(action);
             newPlayers = StatsService.updateStat(
                 this.state.activePlayers,
                 this.state.activePlayerKey,
@@ -275,11 +271,11 @@ class GameContainer extends Component {
                         />
                         <AssistButtonContainer
                             assist={() => this.updateStats("assist")}
+                            steal={() => this.updateStats("steals")}
                             block={() => this.updateStats("block")}
                         />
                         <FoulButtonContainer
                             fouls={() => this.updateStats("fouls")}
-                            technicals={() => this.updateStats("technicals")}
                             turnOvers={() => this.updateStats("turnOvers")}
                         />
                         <View style={styles.resetBox}>
@@ -347,6 +343,9 @@ class GameContainer extends Component {
                                     &bull;&nbsp;Blocks:&nbsp;
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .blocks + `\n`}
+                                    &bull;&nbsp;Steals:&nbsp;
+                                    {this.state.activePlayers[this.state.activePlayerKey]
+                                        .steals + `\n`}
                                     &bull;&nbsp;Fouls:&nbsp;
                                     {this.state.activePlayers[this.state.activePlayerKey]
                                         .foulsCommitted + ` `}
