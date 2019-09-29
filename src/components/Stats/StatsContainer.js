@@ -63,7 +63,10 @@ class StatsContainer extends Component {
                     />
                 </View>
                 <View style={styles.statsBox}>
-                    <PlayerStats finalStats={this.state.finalStats} />
+                    <PlayerStats
+                        finalStats={this.state.finalStats}
+                        gameTime={this.state.gameTime}
+                    />
                 </View>
                 {sendReportView}
             </Modal>

@@ -8,7 +8,12 @@ import {
 
 const playerStats = props => {
     const playerOutput = Object.keys(props.finalStats).map(key => (
-        <StatsItem key={key} playerId={key} playerStats={props.finalStats[key]} />
+        <StatsItem
+            key={key}
+            playerId={key}
+            playerStats={props.finalStats[key]}
+            gameTime={props.gameTime}
+        />
     ));
     return <ScrollView style={styles.playerContainer}>{playerOutput}</ScrollView>;
 };

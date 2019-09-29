@@ -3,6 +3,58 @@ const StatsService = {
         return "Your Number " + number;
     },
 
+    calculateFinalStats: function(finalStats, gameSeconds) {
+        //(PTS + REB + AST + STL + BLK − ((FGA − FGM) + (FTA − FTM) + TO))
+
+        const min = (gameSeconds / 60).toFixed(2);
+
+        Object.keys(finalStats).map(key => {
+            const percentOfGamePlayed = 0;
+
+            if (gameSeconds != 0) {
+                percentOfGamePlayed = (
+                    (finalStats[key].timePlayedSec / gameSeconds) *
+                    100
+                ).toFixed(0);
+            }
+
+            const assistsPerMin = 0;
+            const reboundsPerMin = 0;
+            const pointsPerMin = 0;
+            if (min != 0) {
+                assistsPerMin = (finalStats[key].assists / min).toFixed(3);
+                reboundsPerMin = (finalStats[key].rebounds / min).toFixed(3);
+                pointsPerMin = (finalStats[key].points / min).toFixed(3);
+            }
+
+            const shotDiff = finalStats[key].shotAttempts - finalStats[key].shotsMade;
+            const ftDiff = finalStats[key].freeThrowAttempts - finalStats[key].freeThrowMade;
+
+            const efficiencyRating =
+                finalStats[key].points +
+                finalStats[key].rebounds +
+                finalStats[key].assists +
+                finalStats[key].steals +
+                finalStats[key].blocks -
+                (shotDiff - ftDiff + finalStats[key].turnOvers);
+
+            const assistToTurnOver = 0;
+            if (finalStats[key].turnOvers != 0) {
+                assistToTurnOver = (
+                    finalStats[key].assists / finalStats[key].turnOvers
+                ).toFixed(3);
+            }
+
+            finalStats[key].efficiencyRating = efficiencyRating;
+            finalStats[key].assistToTurnOver = assistToTurnOver;
+            finalStats[key].percentOfGamePlayed = percentOfGamePlayed;
+            finalStats[key].pointsPerMin = pointsPerMin;
+            finalStats[key].reboundsPerMin = reboundsPerMin;
+            finalStats[key].assistsPerMin = assistsPerMin;
+        });
+        return finalStats;
+    },
+
     updateStat: function(activePlayers, activePlayerKey, action) {
         switch (action) {
             case "shotMadeTwo":
@@ -209,6 +261,7 @@ const StatsService = {
             clockedIn: false,
             timePlayedSec: 0,
             timePlayedMin: "0:00",
+            percentOfGamePlayed: 0,
             points: 0,
             shotAttempts: 0,
             shotsMade: 0,
@@ -236,7 +289,9 @@ const StatsService = {
             assistsPerMin: 0,
             blocksPerMin: 0,
             turnOversPerMin: 0,
-            foulsPerMin: 0
+            foulsPerMin: 0,
+            efficiencyRating: 0,
+            assistToTurnOver: 0
         };
 
         activePlayers[activePlayerKey] = resetStats;
@@ -253,6 +308,7 @@ const StatsService = {
                 clockedIn: activePlayers[thiskey].clockedIn,
                 timePlayedSec: activePlayers[thiskey].timePlayedSec,
                 timePlayedMin: activePlayers[thiskey].timePlayedMin,
+                percentOfGamePlayed: activePlayers[thiskey].percentOfGamePlayed,
                 points: oldActivePlayers[thiskey].points,
                 shotAttempts: oldActivePlayers[thiskey].shotAttempts,
                 twoPointAttempts: oldActivePlayers[thiskey].twoPointAttempts,
@@ -279,7 +335,9 @@ const StatsService = {
                 assistsPerMin: oldActivePlayers[thiskey].assistsPerMin,
                 blocksPerMin: oldActivePlayers[thiskey].blocksPerMin,
                 turnOversPerMin: oldActivePlayers[thiskey].turnOversPerMin,
-                foulsPerMin: oldActivePlayers[thiskey].foulsPerMin
+                foulsPerMin: oldActivePlayers[thiskey].foulsPerMin,
+                efficiencyRating: oldActivePlayers[thiskey].efficiencyRating,
+                assistToTurnOver: oldActivePlayers[thiskey].assistToTurnOver
             };
         });
         return newPlayers;

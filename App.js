@@ -6,6 +6,7 @@ import StartButton from "./src/components/Game/StartButton";
 // import courtImage from "./src/assets/court2.jpg";
 import StatsContainer from "./src/components/Stats/StatsContainer";
 import GameContainer from "./src/components/Game/GameContainer";
+import StatsService from "./src/services/StatsService";
 
 export default class App extends Component {
     constructor() {
@@ -44,6 +45,7 @@ export default class App extends Component {
             clockedIn: false,
             timePlayedSec: 0,
             timePlayedMin: "0:00",
+            percentOfGamePlayed: 0,
             points: 0,
             shotAttempts: 0,
             shotsMade: 0,
@@ -71,7 +73,9 @@ export default class App extends Component {
             assistsPerMin: 0,
             blocksPerMin: 0,
             turnOversPerMin: 0,
-            foulsPerMin: 0
+            foulsPerMin: 0,
+            efficiencyRating: 0,
+            assistToTurnOver: 0
         };
 
         this.setState(prevState => {
@@ -104,7 +108,11 @@ export default class App extends Component {
         });
     };
 
-    gameEndHandler = (endGameTime, endGameStats) => {
+    gameEndHandler = (endGameTime, endGameStats, endGameSeconds) => {
+        const calculatedStats = StatsService.calculateFinalStats(
+            endGameStats,
+            endGameSeconds
+        );
         this.setState(prevState => {
             return {
                 disableButton: true,

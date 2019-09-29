@@ -25,7 +25,6 @@ import {
 // TODO option to clock in players at game start? - 8
 // TODO Add more stats to Final Report - 6
 // TODO Add more stats to email final report view - 7
-// TODO make game stats its own component - 5
 
 class GameContainer extends Component {
     constructor(props) {
@@ -148,7 +147,6 @@ class GameContainer extends Component {
             nowStateActive = { ...this.state.activePlayers };
             this.addToOldActivePlayers(nowStateActive);
             this.clockInTest();
-            console.log(action);
             newPlayers = StatsService.updateStat(
                 this.state.activePlayers,
                 this.state.activePlayerKey,
@@ -382,7 +380,8 @@ class GameContainer extends Component {
                             onPress={() => {
                                 this.props.gameEnd(
                                     this.state.gameMin,
-                                    this.state.activePlayers
+                                    this.state.activePlayers,
+                                    this.state.gameTime
                                 );
                             }}
                         />
