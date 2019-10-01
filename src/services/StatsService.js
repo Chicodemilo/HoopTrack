@@ -9,7 +9,7 @@ const StatsService = {
         const min = (gameSeconds / 60).toFixed(2);
 
         Object.keys(finalStats).map(key => {
-            const percentOfGamePlayed = 0;
+            let percentOfGamePlayed = 0;
 
             if (gameSeconds != 0) {
                 percentOfGamePlayed = (
@@ -18,13 +18,17 @@ const StatsService = {
                 ).toFixed(0);
             }
 
-            const assistsPerMin = 0;
-            const reboundsPerMin = 0;
-            const pointsPerMin = 0;
+            let assistsPerMin = 0;
+            let reboundsPerMin = 0;
+            let pointsPerMin = 0;
+            let turnOversPerMin = 0;
+            let foulsPerMin = 0;
             if (min != 0) {
                 assistsPerMin = (finalStats[key].assists / min).toFixed(3);
                 reboundsPerMin = (finalStats[key].rebounds / min).toFixed(3);
                 pointsPerMin = (finalStats[key].points / min).toFixed(3);
+                turnOversPerMin = (finalStats[key].turnOvers / min).toFixed(3);
+                foulsPerMin = (finalStats[key].foulsCommitted / min).toFixed(3);
             }
 
             const shotDiff = finalStats[key].shotAttempts - finalStats[key].shotsMade;
@@ -38,7 +42,7 @@ const StatsService = {
                 finalStats[key].blocks -
                 (shotDiff - ftDiff + finalStats[key].turnOvers);
 
-            const assistToTurnOver = 0;
+            let assistToTurnOver = 0;
             if (finalStats[key].turnOvers != 0) {
                 assistToTurnOver = (
                     finalStats[key].assists / finalStats[key].turnOvers
@@ -51,6 +55,8 @@ const StatsService = {
             finalStats[key].pointsPerMin = pointsPerMin;
             finalStats[key].reboundsPerMin = reboundsPerMin;
             finalStats[key].assistsPerMin = assistsPerMin;
+            finalStats[key].turnOversPerMin = turnOversPerMin;
+            finalStats[key].foulsPerMin = foulsPerMin;
         });
         return finalStats;
     },

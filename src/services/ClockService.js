@@ -34,13 +34,18 @@ const timeManipulation = {
         var h = Math.floor(d / 3600);
         var m = Math.floor((d % 3600) / 60);
         var s = Math.floor((d % 3600) % 60);
-        var hDisplay = h > 0 ? h + ":" : "";
-        var mDisplay = m > 0 ? m + ":" : "0:";
-        var sDisplay = s > 0 ? s + "" : ":00";
+        var hDisplay = h > 0 ? h + "" : "";
+        var mDisplay = m > 0 ? m + "" : "00";
+        var sDisplay = s > 0 ? s + "" : "00";
         if (sDisplay.length < 2) {
             sDisplay = "0" + sDisplay;
         }
-        return hDisplay + mDisplay + sDisplay;
+
+        if (hDisplay > 0) {
+            return hDisplay + ":" + mDisplay + ":" + sDisplay;
+        }
+
+        return mDisplay + ":" + sDisplay;
     }
 };
 

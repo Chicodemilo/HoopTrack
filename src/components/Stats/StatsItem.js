@@ -56,10 +56,19 @@ const statsItem = props => {
                 {props.playerStats.defRebounds}
             </Text>
             <Text style={styles.playerTextSmall}>
-                &bull; NBA Efficiency Rating: {props.playerStats.efficiencyRating}
+                &bull; Assist To TurnOver Ratio: {props.playerStats.assistToTurnOver}
             </Text>
             <Text style={styles.playerTextSmall}>
-                &bull; Assist To TurnOver Ratio: {props.playerStats.assistToTurnOver}
+                &bull; Points Per Minute Played: {props.playerStats.pointsPerMin}
+            </Text>
+            <Text style={styles.playerTextSmall}>
+                &bull; Reb Per Minute Played: {props.playerStats.reboundsPerMin}
+            </Text>
+            <Text style={styles.playerTextSmall}>
+                &bull; Assist Per Minute Played: {props.playerStats.assistsPerMin}
+            </Text>
+            <Text style={styles.playerTextSmall}>
+                &bull; NBA Efficiency Rating: {props.playerStats.efficiencyRating}
             </Text>
         </View>
     );
@@ -68,7 +77,7 @@ const statsItem = props => {
 const styles = StyleSheet.create({
     playerStats: {
         padding: 10,
-        height: 420,
+        height: 440,
         backgroundColor: "#fcfaf7",
         marginBottom: 15,
         marginLeft: 10,

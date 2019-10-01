@@ -23,8 +23,7 @@ import {
 } from "react-native-responsive-screen";
 
 // TODO option to clock in players at game start? - 8
-// TODO Add more stats to Final Report - 6
-// TODO Add more stats to email final report view - 7
+// TOTO really fix end game bug - 9
 
 class GameContainer extends Component {
     constructor(props) {
@@ -378,6 +377,7 @@ class GameContainer extends Component {
                             title="End Game"
                             color="red"
                             onPress={() => {
+                                //TODO move this to a function to make activeGame false then do this...
                                 this.props.gameEnd(
                                     this.state.gameMin,
                                     this.state.activePlayers,

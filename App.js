@@ -109,6 +109,11 @@ export default class App extends Component {
     };
 
     gameEndHandler = (endGameTime, endGameStats, endGameSeconds) => {
+        console.log("HERE");
+        Object.keys(endGameStats).map(key => {
+            console.log(endGameStats[key].clockedIn);
+            endGameStats[key].clockedIn = false;
+        });
         const calculatedStats = StatsService.calculateFinalStats(
             endGameStats,
             endGameSeconds

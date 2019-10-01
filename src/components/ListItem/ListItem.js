@@ -6,6 +6,13 @@ const listItem = props => (
     <TouchableOpacity onPress={props.onItemPressed}>
         <View style={styles.listItem}>
             <Text>{props.playerName}</Text>
+            <CheckBox
+                center
+                title="Click Here"
+                checkedIcon="dot-circle-o"
+                uncheckedIcon="circle-o"
+                checked={this.state.checked}
+            />
         </View>
     </TouchableOpacity>
 );
