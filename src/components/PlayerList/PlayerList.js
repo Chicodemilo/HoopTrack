@@ -10,6 +10,9 @@ const playerList = props => {
             onItemPressed={() => {
                 props.onItemDeleted(key);
             }}
+            toggleCheckIn={() => {
+                props.onPlayerCheckIn(key);
+            }}
         />
     ));
     return <ScrollView style={styles.listContainer}>{playerOutput}</ScrollView>;

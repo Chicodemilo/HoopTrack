@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Modal, Text, View, Button, StyleSheet, ScrollView, FlatList } from "react-native";
+import { Modal, View, Button, StyleSheet, Platform, ImageBackground } from "react-native";
 import PlayerStats from "./PlayerStats";
 import SendReportContainer from "../SendReport/SendReportContainer";
+import courtImage from "../../../src/assets/court3.jpg";
 
 import {
     widthPercentageToDP as wp,
@@ -46,29 +47,34 @@ class StatsContainer extends Component {
 
         return (
             <Modal visible={this.props.gameOver} animationType="slide">
-                <View style={styles.gameView}>
-                    <Button
-                        title="Hide Game Stats"
-                        color="red"
-                        onPress={() => {
-                            this.props.hideFinalStats();
-                        }}
-                    />
-                    <Button
-                        title="Email Report"
-                        color="blue"
-                        onPress={() => {
-                            this.showReportView();
-                        }}
-                    />
-                </View>
-                <View style={styles.statsBox}>
-                    <PlayerStats
-                        finalStats={this.state.finalStats}
-                        gameTime={this.state.gameTime}
-                    />
-                </View>
-                {sendReportView}
+                <ImageBackground
+                    source={courtImage}
+                    style={{ width: "100%", height: "100%" }}
+                >
+                    <View style={styles.gameView}>
+                        <Button
+                            title="Hide Game Stats"
+                            color="red"
+                            onPress={() => {
+                                this.props.hideFinalStats();
+                            }}
+                        />
+                        <Button
+                            title="Email Report"
+                            color="blue"
+                            onPress={() => {
+                                this.showReportView();
+                            }}
+                        />
+                    </View>
+                    <View style={styles.statsBox}>
+                        <PlayerStats
+                            finalStats={this.state.finalStats}
+                            gameTime={this.state.gameTime}
+                        />
+                    </View>
+                    {sendReportView}
+                </ImageBackground>
             </Modal>
         );
     }
@@ -76,23 +82,21 @@ class StatsContainer extends Component {
 
 const styles = StyleSheet.create({
     gameView: {
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
         backgroundColor: "white",
         color: "green",
         marginTop: 0,
         marginBottom: 0,
-        paddingTop: 30,
-        paddingBottom: 10,
+        paddingTop: Platform.OS === "ios" ? 35 : 15,
+        paddingBottom: 15,
         borderBottomColor: "black",
         borderWidth: 1,
-        width: wp("100%"),
-        height: hp("15%")
+        width: wp("100%")
     },
     statsBox: {
-        height: hp("84%")
+        // height: hp("84%")
+        backgroundColor: "rgba(255, 255, 255, 0.7)"
     }
 });
 

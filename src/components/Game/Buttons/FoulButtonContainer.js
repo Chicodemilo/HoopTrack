@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         backgroundColor: "#6e0107",
-        margin: 5,
-        flexGrow: 1
+        margin: 3,
+        flex: 1
     },
     shotText: {
         fontSize: 13,

@@ -77,12 +77,12 @@ const statsItem = props => {
 const styles = StyleSheet.create({
     playerStats: {
         padding: 10,
-        height: 440,
-        backgroundColor: "#fcfaf7",
-        marginBottom: 15,
+        height: 505,
+        backgroundColor: "#fcfcfc",
+        marginBottom: 25,
         marginLeft: 10,
         marginRight: 10,
-        marginTop: 15,
+        marginTop: 5,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.6,
@@ -91,9 +91,9 @@ const styles = StyleSheet.create({
     nameBox: {
         width: "100%",
         paddingBottom: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: "#b5b5b5",
-        marginBottom: 10
+        borderBottomWidth: 2,
+        borderBottomColor: "#707070",
+        marginBottom: 5
     },
     playerText: {
         fontSize: 16,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     playerTextSmall: {
-        fontSize: 13,
+        fontSize: 14,
         textAlign: "left",
         marginTop: 4
     }

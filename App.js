@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    Button,
+    ImageBackground,
+    Keyboard,
+    Platform
+} from "react-native";
 import PlayerInput from "./src/components/PlayerInput/PlayerInput";
 import PlayerList from "./src/components/PlayerList/PlayerList";
 import StartButton from "./src/components/Game/StartButton";
-// import courtImage from "./src/assets/court2.jpg";
+import courtImage from "./src/assets/court3.jpg";
 import StatsContainer from "./src/components/Stats/StatsContainer";
 import GameContainer from "./src/components/Game/GameContainer";
 import StatsService from "./src/services/StatsService";
@@ -77,11 +85,20 @@ export default class App extends Component {
             efficiencyRating: 0,
             assistToTurnOver: 0
         };
-
+        Keyboard.dismiss();
         this.setState(prevState => {
             return {
                 playerObj: (prevState.playersObj[thisPlayer.key] = thisPlayer),
                 disableButton: false
+            };
+        });
+    };
+
+    toggleCheckIn = key => {
+        this.setState(prevState => {
+            prevState.playersObj[key].clockedIn = !prevState.playersObj[key].clockedIn;
+            return {
+                players: prevState.playersObj
             };
         });
     };
@@ -109,9 +126,7 @@ export default class App extends Component {
     };
 
     gameEndHandler = (endGameTime, endGameStats, endGameSeconds) => {
-        console.log("HERE");
         Object.keys(endGameStats).map(key => {
-            console.log(endGameStats[key].clockedIn);
             endGameStats[key].clockedIn = false;
         });
         const calculatedStats = StatsService.calculateFinalStats(
@@ -169,39 +184,40 @@ export default class App extends Component {
         }
 
         return (
-            <View style={styles.container}>
-                {Object.keys(this.state.playersObj).length > 0 ? (
-                    <GameContainer
-                        gamePlayers={this.state.playersObj}
-                        initialPlayers={this.state.initialPlayerObj}
-                        gameInProgress={this.state.gameInProgress}
-                        gameEnd={this.gameEndHandler}
-                        firstActivePlayerKey={this.state.firstActivePlayerKey}
-                        firstActivePlayerName={this.state.firstActivePlayerName}
+            <ImageBackground source={courtImage} style={{ width: "100%", height: "100%" }}>
+                <View style={styles.container}>
+                    {Object.keys(this.state.playersObj).length > 0 ? (
+                        <GameContainer
+                            gamePlayers={this.state.playersObj}
+                            initialPlayers={this.state.initialPlayerObj}
+                            gameInProgress={this.state.gameInProgress}
+                            gameEnd={this.gameEndHandler}
+                            firstActivePlayerKey={this.state.firstActivePlayerKey}
+                            firstActivePlayerName={this.state.firstActivePlayerName}
+                        />
+                    ) : null}
+
+                    {endGameView}
+
+                    <StartButton
+                        startTheGame={this.startTheGameHandler}
+                        allowGame={this.state.disableButton}
                     />
-                ) : null}
-
-                {endGameView}
-
-                <StartButton
-                    startTheGame={this.startTheGameHandler}
-                    allowGame={this.state.disableButton}
-                />
-                <Text style={styles.welcome}>HoopTrack</Text>
-                <PlayerInput
-                    onPlayerAdded={this.playerAddedHandler}
-                    maxPlayers={this.state.playerLimit}
-                    playerCount={Object.keys(this.state.playersObj).length}
-                />
-                <PlayerList
-                    players={this.state.players}
-                    playerObj={this.state.playersObj}
-                    onItemDeleted={this.playerDeletedHandler}
-                />
-                {finalStatsButton}
-                <Text>Total Game Time: {this.state.gameTime}</Text>
-                {/* <Image source={courtImage} style={styles.courtPic} imageStyle={{ opacity: 0.3 }} resizeMode="contain" /> */}
-            </View>
+                    <Text style={styles.welcome}>HoopTrack</Text>
+                    <PlayerInput
+                        onPlayerAdded={this.playerAddedHandler}
+                        maxPlayers={this.state.playerLimit}
+                        playerCount={Object.keys(this.state.playersObj).length}
+                    />
+                    <PlayerList
+                        players={this.state.players}
+                        playerObj={this.state.playersObj}
+                        onItemDeleted={this.playerDeletedHandler}
+                        onPlayerCheckIn={this.toggleCheckIn}
+                    />
+                    {finalStatsButton}
+                </View>
+            </ImageBackground>
         );
     }
 }
@@ -212,10 +228,10 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        backgroundColor: "#F5FCFF",
+        backgroundColor: "rgba(255, 255, 255, 0.6)",
         marginTop: 0,
         marginBottom: 0,
-        paddingTop: 50,
+        paddingTop: Platform.OS === "ios" ? 50 : 15,
         paddingBottom: 30
     },
     welcome: {

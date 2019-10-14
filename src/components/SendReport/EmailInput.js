@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { View, TextInput, Button, StyleSheet, Text } from "react-native";
+import { View, TextInput, Button, StyleSheet, Text, ImageBackground } from "react-native";
 import { format, getTime } from "date-fns";
 import axios from "axios";
+import courtImage from "../../../src/assets/court3.jpg";
 import { URL_ONE, URL_TWO, NAME, EMAIL, PW } from "../../../info";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 class EmailInput extends Component {
     //
@@ -168,27 +173,30 @@ class EmailInput extends Component {
         ) : null;
 
         return (
-            <View style={styles.inputContainer}>
-                <Text style={styles.inputLabels}>Game: </Text>
-                <TextInput
-                    style={styles.emailInput}
-                    placeholder="Enter A Name For This Game"
-                    onChangeText={this.saveGameName}
-                />
-                <Text style={styles.inputLabels}>Email Address: </Text>
-                <TextInput
-                    style={styles.emailInput}
-                    placeholder="Enter Your Email Address"
-                    onChangeText={this.saveEmail}
-                />
-                <Button
-                    style={styles.inputButton}
-                    title="Send Game Stats"
-                    onPress={this.sendTheEmail}
-                />
-                {emailWarning}
-                {gameSentAlert}
-            </View>
+            <ImageBackground source={courtImage} style={{ width: "100%", height: "100%" }}>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.inputLabels}>Game: </Text>
+                    <TextInput
+                        style={styles.emailInput}
+                        placeholder="Enter A Name For This Game"
+                        onChangeText={this.saveGameName}
+                    />
+                    <Text style={styles.inputLabels}>Email Address: </Text>
+                    <TextInput
+                        style={styles.emailInput}
+                        placeholder="Enter Your Email Address"
+                        onChangeText={this.saveEmail}
+                        keyboardType="email-address"
+                    />
+                    <Button
+                        style={styles.inputButton}
+                        title="Send Game Stats"
+                        onPress={this.sendTheEmail}
+                    />
+                    {emailWarning}
+                    {gameSentAlert}
+                </View>
+            </ImageBackground>
         );
     }
 }
@@ -198,33 +206,37 @@ const styles = StyleSheet.create({
         height: 50,
         width: "93%",
         borderColor: "#ccc",
+        backgroundColor: "white",
         borderWidth: 0.5,
         padding: 5,
         margin: 5
     },
     inputContainer: {
         flexDirection: "column",
-        justifyContent: "space-between"
+        backgroundColor: "rgba(255, 255, 255, 0.6)",
+        height: hp("100%")
     },
     inputButton: {
-        margin: 2,
+        marginTop: 15,
         width: "40%"
     },
     inputLabels: {
-        fontSize: 11,
-        color: "#ababab",
+        fontSize: 13,
+        color: "#474747",
         marginTop: 15,
         marginLeft: 5
     },
     warningText: {
         color: "#00b3ff",
         fontWeight: "bold",
-        fontSize: 13
+        textAlign: "center",
+        fontSize: 17
     },
     emailText: {
         color: "#289600",
         fontWeight: "bold",
-        fontSize: 14
+        textAlign: "center",
+        fontSize: 17
     },
     warningBox: {
         left: 10,

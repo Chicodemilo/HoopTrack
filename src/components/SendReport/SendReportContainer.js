@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Text, View, Button, StyleSheet, ScrollView, FlatList } from "react-native";
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp
-} from "react-native-responsive-screen";
+import { Modal, View, Button, StyleSheet, Platform } from "react-native";
 import EmailInput from "./EmailInput";
 
 class SendReportContainer extends Component {
@@ -36,7 +32,7 @@ class SendReportContainer extends Component {
 
 const styles = StyleSheet.create({
     reportButtons: {
-        marginTop: 50,
+        marginTop: Platform.OS === "ios" ? 40 : 15,
         borderBottomColor: "black",
         borderBottomWidth: 1
     }

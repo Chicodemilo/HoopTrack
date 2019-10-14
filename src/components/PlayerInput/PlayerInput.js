@@ -45,6 +45,7 @@ class PlayerInput extends Component {
                     value={this.state.playerName}
                     onChangeText={this.playerNameChangedHandler}
                     maxLength={10}
+                    blurOnSubmit={true}
                 />
                 <Button
                     style={styles.inputButton}
@@ -67,13 +68,13 @@ const styles = StyleSheet.create({
     playerInput: {
         height: 50,
         width: "60%",
-        borderColor: "#ccc",
-        borderWidth: 0.5,
+        // borderColor: "#6b5d5c",
+        backgroundColor: "white",
+        // borderWidth: 0.5,
         padding: 4,
         margin: 2
     },
     inputContainer: {
-        // flex: 1,
         flexDirection: "row",
         justifyContent: "space-between"
     },

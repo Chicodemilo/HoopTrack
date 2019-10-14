@@ -37,11 +37,11 @@ const styles = StyleSheet.create({
         padding: 5,
         height: hp("6%"),
         backgroundColor: "#8a3afc",
-        margin: 5,
+        margin: 3,
         flexGrow: 1
     },
     shotText: {
-        fontSize: 12,
+        fontSize: 10,
         fontWeight: "bold",
         color: "white"
     }

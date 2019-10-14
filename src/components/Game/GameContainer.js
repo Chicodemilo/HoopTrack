@@ -22,8 +22,8 @@ import {
     heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 
-// TODO option to clock in players at game start? - 8
-// TOTO really fix end game bug - 9
+// TODO Fix style on android - 9
+// TOTO really fix end game bug - 10
 
 class GameContainer extends Component {
     constructor(props) {
@@ -234,6 +234,14 @@ class GameContainer extends Component {
                     </View>
                 </TouchableOpacity>
             );
+        } else {
+            undoButton = (
+                <TouchableOpacity style={styles.resetButtonsInactive}>
+                    <View>
+                        <Text style={styles.resetText}></Text>
+                    </View>
+                </TouchableOpacity>
+            );
         }
 
         return (
@@ -290,7 +298,7 @@ class GameContainer extends Component {
                     <View style={styles.gameStats}>
                         {this.state.activePlayerKey != null ? (
                             <View>
-                                <Text style={{ color: "green", fontSize: 14 }}>
+                                <Text style={styles.greenText}>
                                     &bull;&nbsp;Game Clock:&nbsp;
                                     {this.state.gameMin + `\n`}
                                     &bull;&nbsp;Player Min:&nbsp;
@@ -404,13 +412,13 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         height: hp("100%"),
         paddingTop: Platform.OS === "ios" ? 27 : 5,
-        paddingBottom: 10
+        paddingBottom: 0
     },
     buttonBox: {
         flexDirection: "column",
         alignItems: "flex-start",
         width: "100%",
-        height: hp("47%"),
+        height: hp("45%"),
         borderTopColor: "green",
         borderTopWidth: 1
     },
@@ -418,7 +426,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "flex-start",
         width: "100%",
-        height: hp("47%"),
+        height: hp("45%"),
         borderTopColor: "green",
         borderTopWidth: 1,
         backgroundColor: "black",
@@ -430,7 +438,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-evenly",
         position: "absolute",
-        height: hp("5%"),
+        height: hp("7%"),
         bottom: 9,
         padding: 2,
         width: "100%",
@@ -446,7 +454,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "stretch",
         position: "absolute",
-        height: hp("29%"),
+        height: hp("31%"),
         bottom: 30,
         padding: 7,
         borderTopColor: "green",
@@ -462,12 +470,17 @@ const styles = StyleSheet.create({
     },
     resetButtons: {
         backgroundColor: "#212121",
-        margin: 2,
+        margin: 3,
         padding: 5,
-        justifyContent: "center",
-        height: hp("4%"),
-        alignItems: "center",
-        width: "49%"
+        flex: 1,
+        height: hp("4%")
+    },
+    resetButtonsInactive: {
+        backgroundColor: "black",
+        margin: 3,
+        padding: 5,
+        flex: 1,
+        height: hp("4%")
     },
     resetText: {
         color: "#ddd",
@@ -489,11 +502,14 @@ const styles = StyleSheet.create({
         top: 5,
         padding: 2
     },
-
     activePlayerName: {
         color: "white",
         fontSize: 14,
         fontWeight: "bold"
+    },
+    greenText: {
+        color: "green",
+        fontSize: Platform.OS === "ios" ? 13 : 12
     }
 });
 

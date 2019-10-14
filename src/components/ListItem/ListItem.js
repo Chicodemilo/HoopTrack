@@ -10,30 +10,58 @@ class ListItem extends Component {
         };
     }
 
+    toggleCheckIn = () => {
+        this.setState(prevState => {
+            return {
+                checked: !prevState.checked
+            };
+        });
+        this.props.toggleCheckIn();
+    };
+
     render() {
         return (
-            <TouchableOpacity onPress={this.props.onItemPressed}>
-                <View style={styles.listItem}>
-                    <Text>{this.props.playerName}</Text>
+            <View style={styles.itemContainer}>
+                <TouchableOpacity onPress={this.props.onItemPressed} style={styles.listItem}>
+                    <View>
+                        <Text style={styles.nameText}>{this.props.playerName}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <View style={styles.starterCheck}>
                     <CheckBox
-                        center
-                        title="Click Here"
+                        left
+                        title="Starter"
+                        uncheckedIcon="circle-o"
                         checkedIcon="dot-circle-o"
+                        checkedColor="green"
                         checked={this.state.checked}
-                        onPress={() => this.setState({ checked: !this.state.checked })}
+                        onPress={() => this.toggleCheckIn()}
                     />
                 </View>
-            </TouchableOpacity>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    itemContainer: {
+        flexDirection: "row",
+        alignItems: "stretch"
+    },
+    nameText: {
+        fontSize: 13
+    },
     listItem: {
-        width: "100%",
+        width: "70%",
+        marginTop: 5,
         marginBottom: 5,
+        height: 45,
         padding: 10,
         backgroundColor: "#eee"
+    },
+    starterCheck: {
+        width: "35%"
     }
 });
 
