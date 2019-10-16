@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
     },
     greenText: {
         color: "green",
-        fontSize: Platform.OS === "ios" ? 13 : 12
+        fontSize: Platform.OS === "ios" ? 11 : 11
     }
 });
 

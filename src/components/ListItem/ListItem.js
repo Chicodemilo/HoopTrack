@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         fontSize: 13
     },
     listItem: {
-        width: "70%",
+        width: "60%",
         marginTop: 5,
         marginBottom: 5,
         height: 45,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#eee"
     },
     starterCheck: {
-        width: "35%"
+        width: "40%"
     }
 });
 
