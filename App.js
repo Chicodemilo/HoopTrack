@@ -30,7 +30,8 @@ export default class App extends Component {
             gameTime: 0,
             endGameStats: "",
             firstActivePlayerName: "",
-            firstActivePlayerKey: null
+            firstActivePlayerKey: null,
+            restartGame: false
         };
     }
 
@@ -133,15 +134,30 @@ export default class App extends Component {
             endGameStats,
             endGameSeconds
         );
+
+        const endGame = {
+            id: this.makeGameId(),
+            date: format(new Date(), "yyyy-MM-dd"),
+            name: "BBall Game: " + format(new Date(), "M-d-yy"),
+            players: this.state.finalStats,
+            gameTime: endGameTime
+        };
+
         this.setState(prevState => {
             return {
                 disableButton: true,
                 playersObj: {},
                 gameInProgress: false,
-                endGameStats: endGameStats,
+                endGameStats: endGame,
                 gameTime: endGameTime
             };
         });
+    };
+
+    makeGameId = () => {
+        id = Math.floor(getTime(new Date()) / 1000);
+        id = id + Math.floor(Math.random() * 10000);
+        return id;
     };
 
     showFinalStats = () => {
@@ -178,7 +194,6 @@ export default class App extends Component {
                     showFinalStats={this.state.showFinalStats}
                     hideFinalStats={this.hideFinalStats}
                     finalStats={this.state.endGameStats}
-                    gameTime={this.state.gameTime}
                 />
             );
         }

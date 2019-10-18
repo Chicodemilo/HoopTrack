@@ -22,8 +22,9 @@ import {
     heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 
-// TODO Fix style on android - 9
-// TOTO really fix end game bug - 10
+// TODO Fix View overlap on buttons on android
+// TODO restart a game
+// TODO edit player stats
 
 class GameContainer extends Component {
     constructor(props) {

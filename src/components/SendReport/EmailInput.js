@@ -14,19 +14,12 @@ class EmailInput extends Component {
     state = {
         emailSent: false,
         gameNamed: false,
-        gameName: "",
-        gameId: "",
+        gameName: this.props.finalStats.name,
         emailAddress: "",
-        finalStats: this.props.finalStats,
+        finalStats: this.props.finalStats.players,
         showEmailWarning: false,
         gameSent: false
     };
-
-    componentDidMount() {
-        this.setState({
-            gameId: this.makeGameId()
-        });
-    }
 
     saveGameName = val => {
         this.setState(prevState => {
@@ -104,7 +97,7 @@ class EmailInput extends Component {
                     id: this.state.gameId,
                     date: format(new Date(), "yyyy-MM-dd"),
                     name: this.state.gameName,
-                    players: this.state.finalStats
+                    players: this.state.finalStats.players
                 }
             }
         };
@@ -153,12 +146,6 @@ class EmailInput extends Component {
         return re.test(String(email).toLowerCase());
     }
 
-    makeGameId = () => {
-        id = Math.floor(getTime(new Date()) / 1000);
-        id = id + Math.floor(Math.random() * 10000);
-        return id;
-    };
-
     render() {
         emailWarning = this.state.showEmailWarning ? (
             <View style={styles.warningBox}>
@@ -178,7 +165,7 @@ class EmailInput extends Component {
                     <Text style={styles.inputLabels}>Game: </Text>
                     <TextInput
                         style={styles.emailInput}
-                        placeholder="Enter A Name For This Game"
+                        value={this.props.}
                         onChangeText={this.saveGameName}
                     />
                     <Text style={styles.inputLabels}>Email Address: </Text>

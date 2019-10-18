@@ -13,8 +13,8 @@ class StatsContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            finalStats: props.finalStats,
-            gameTime: props.gameTime,
+            finalStats: props.finalStats.players,
+            gameTime: props.finalStats.gameTime,
             showFinalStats: props.showFinalStats,
             hideFinalStats: props.hideFinalStats,
             showSendReport: false
@@ -40,7 +40,7 @@ class StatsContainer extends Component {
                 <SendReportContainer
                     hideReportView={this.hideReportView}
                     showSendReport={this.showSendReport}
-                    finalStats={this.state.finalStats}
+                    finalStats={props.finalStats.players}
                 />
             );
         }
@@ -95,8 +95,7 @@ const styles = StyleSheet.create({
         width: wp("100%")
     },
     statsBox: {
-        // height: hp("84%")
-        backgroundColor: "rgba(255, 255, 255, 0.7)"
+        backgroundColor: "rgba(255, 255, 255, 0.6)"
     }
 });
 
